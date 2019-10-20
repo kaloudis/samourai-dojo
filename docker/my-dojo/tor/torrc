@@ -42,3 +42,8 @@ HiddenServiceDir /var/lib/tor/hsv2bitcoind
 HiddenServiceVersion 2
 HiddenServicePort 8333 172.28.1.5:8333
 HiddenServiceDirGroupReadable 1
+
+HiddenServiceDir /var/lib/tor/hsv3electrs
+HiddenServiceVersion 3
+HiddenServicePort 50001 172.28.1.10:50001
+HiddenServiceDirGroupReadable 1

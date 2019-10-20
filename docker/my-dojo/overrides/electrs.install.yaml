@@ -10,10 +10,6 @@ services:
       - bitcoind
       - db
       - tor
-    environment:
-      - RUST_BACKTRACE=1
-#    env_file:
-#      - electrs.env
     volumes:
       - ./conf/docker-electrs.toml:/home/user/.electrs/config.toml:ro
       - data-electrs:/home/user

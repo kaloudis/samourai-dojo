@@ -180,6 +180,12 @@ onion() {
     V2_ADDR_BTCD=$( docker exec -it tor cat /var/lib/tor/hsv2bitcoind/hostname )
     echo "bitcoind hidden service address (v2) = $V2_ADDR_BTCD"
   fi
+
+  if [ "$ELECTRS_INSTALL" == "on" ]; then
+    V3_ADDR_ELECTRS=$( docker exec -it tor cat /var/lib/tor/hsv3electrs/hostname )
+    echo "electrs hidden service address (v3) = $V3_ADDR_ELECTRS"
+  fi
+  
 }
 
 # Display the version of this dojo
