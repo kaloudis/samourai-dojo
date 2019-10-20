@@ -1,0 +1,26 @@
+version: "3.2"
+
+services:
+  
+  electrs:
+    image: electrs-app:latest
+    container_name: electrs
+    command: electrs -vvvv --timestamp --db-dir /home/user/db --daemon-rpc-addr=bitcoind:28256 --electrum-rpc-addr=0.0.0.0:50001
+    depends_on:
+      - bitcoind
+      - db
+      - tor
+    environment:
+      - RUST_BACKTRACE=1
+#    env_file:
+#      - electrs.env
+    volumes:
+      - ./conf/docker-electrs.toml:/home/user/.electrs/config.toml:ro
+      - data-electrs:/home/user
+    restart: on-failure
+    networks:
+      dojonet:
+        ipv4_address: 172.28.1.10
+
+volumes:
+  data-electrs:

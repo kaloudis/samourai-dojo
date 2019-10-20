@@ -33,6 +33,10 @@ select_yaml_files() {
     fi
   fi
 
+  if [ "$ELECTRS_INSTALL" == "on" ]; then
+    yamlFiles="$yamlFiles -f $DIR/overrides/electrs.install.yaml"
+  fi
+
   # Return yamlFiles
   echo "$yamlFiles"
 }
