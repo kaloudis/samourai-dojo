@@ -75,8 +75,6 @@ services:
       - ./.env
     restart: on-failure
     command: /restart.sh
-    ports:
-      - "81:80"
     volumes:
       - data-tor:/var/lib/tor
     networks:

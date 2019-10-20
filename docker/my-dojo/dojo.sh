@@ -234,6 +234,9 @@ logs() {
       if [ "$BITCOIND_INSTALL" == "on" ]; then
         services="$services bitcoind"
       fi
+      if [ "$ELECTRS_INSTALL" == "on" ]; then
+        services="$services electrs"
+      fi
       eval "docker-compose $yamlFiles logs --tail=0 --follow $services"
       ;;
   esac
