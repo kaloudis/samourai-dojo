@@ -31,6 +31,19 @@ Useful reference:
 * https://hub.docker.com/_/rust 
 * [Engelberg/electrs on dojo](https://gist.githubusercontent.com/Engelberg/aac9da2f27b723683982d187bd4d5ea4/raw/6f1f8cc6b1f7cd9fd963869b931ffee34f665c5b/electrs%2520on%2520dojo)
 
+### Adding electrs to existing dojo installation
+
+If you are adding electrs to existing dojo installation, you need to fully remove the tor container, its storage and image (because the `/etc/tor/torrc` is added in docker image):
+
+```sh
+docker container rm tor
+docker volume rm my-dojo_data-tor
+docker image ls   # get the tor image id of samouraiwallet/dojo-tor
+docker image rm <imageid>   # image id of samouraiwallet/dojo-tor
+```
+
+After that you can run `./dojo.sh start` and the tor's image will be rebuilt
+
 
 ## Electrum wallet (client) ##
 
