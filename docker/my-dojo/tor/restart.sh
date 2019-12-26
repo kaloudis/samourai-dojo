@@ -23,6 +23,9 @@ tor_options=(
   --HiddenServiceVersion 2
   --HiddenServicePort "8333 172.28.1.5:8333"
   --HiddenServiceDirGroupReadable 1
+  --HiddenServiceVersion 3
+  --HiddenServicePort "50001 172.28.1.10:50001"
+  --HiddenServiceDir /var/lib/tor/hsv3electrs
 )
 
 if [ "$TOR_USE_BRIDGES" == "on" ]; then
