@@ -8,6 +8,7 @@ keys/index.js
 keys/sslcert/
 node_modules/
 private-tests/
+static/admin/conf/index.js
 *.log
 
 docker/my-dojo/conf/docker-common.conf
