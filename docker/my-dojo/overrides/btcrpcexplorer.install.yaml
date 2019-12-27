@@ -1,0 +1,20 @@
+version: "3.2"
+
+services:
+  
+  btcrpcexplorer:
+    image: "btcrpcexplorer"
+    container_name: btcrpcexplorer
+    build:
+      context: ./../my-dojo/btcrpcexplorer
+      dockerfile: ./Dockerfile
+
+    command: btc-rpc-explorer --port 3002 --bitcoin-host 172.28.1.5 --bitcoind-port 8333
+    depends_on:
+      - bitcoind
+      - tor
+    restart: on-failure
+    networks:
+      dojonet:
+        ipv4_address: 172.28.1.11
+
