@@ -1,0 +1,3 @@
+[submodule "docker/my-dojo/electrs"]
+	path = docker/my-dojo/electrs
+	url = https://github.com/romanz/electrs.git

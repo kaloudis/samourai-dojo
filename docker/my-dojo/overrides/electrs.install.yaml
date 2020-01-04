@@ -5,7 +5,13 @@ services:
   electrs:
     image: electrs-app:latest
     container_name: electrs
-    command: electrs -vvvv --timestamp --db-dir /home/user/db --daemon-rpc-addr=bitcoind:28256 --electrum-rpc-addr=0.0.0.0:50001
+    build:
+      context: ./electrs
+    env_file:
+      - ./.env
+      - ./conf/docker-bitcoind.conf
+      - ./conf/docker-electrs.conf
+    command: "/home/user/restart.sh"
     depends_on:
       - bitcoind
       - db
@@ -13,6 +19,7 @@ services:
     volumes:
       - ./conf/docker-electrs.toml:/home/user/.electrs/config.toml:ro
       - data-electrs:/home/user
+      - ./electrs/restart.sh:/home/user/restart.sh
     restart: on-failure
     networks:
       dojonet:
@@ -20,3 +27,4 @@ services:
 
 volumes:
   data-electrs:
+
