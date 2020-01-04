@@ -19,7 +19,7 @@ services:
     volumes:
       - ./conf/docker-electrs.toml:/home/user/.electrs/config.toml:ro
       - data-electrs:/home/user
-      - ./electrs/restart.sh:/home/user/restart.sh
+      # - ./electrs/restart.sh:/home/user/restart.sh
     restart: on-failure
     networks:
       dojonet:
