@@ -266,7 +266,7 @@ logs() {
 
   case $1 in
     db )
-      docker-compose logs --tail=50 --follow $1
+      docker-compose logs --tail=50 --follow db
       ;;
     bitcoind )
       if [ "$BITCOIND_INSTALL" == "on" ]; then
@@ -290,7 +290,7 @@ logs() {
       logs_explorer $1 $2 $3
       ;;
     electrs )
-      docker container logs electrs --tail=50 --follow
+      docker container logs electrs --tail=50 --follow  # TODO: fix to use docker-compose for consistency
       ;;
     * )
       yamlFiles=$(select_yaml_files)
