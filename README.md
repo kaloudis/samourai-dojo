@@ -20,7 +20,7 @@ By default the electrs will start with ```dojo.sh start```.  If you don't want t
 ELECTRS_INSTALL=off
 ````
 
-You also configure additional option when running electrs.  For example, you may want to limit index-batch-size if you are running on limited hardware (Raspberry Pi or similar)
+You also configure additional options when running electrs.  For example, you may want to limit index-batch-size if you are running on limited hardware (Raspberry Pi or similar)
 
 ```
 ELECTRS_OPTIONS="--index-batch-size=10"
@@ -35,10 +35,12 @@ Useful reference:
 
 ### Adding electrs to existing dojo installation
 
-If you are adding electrs to existing dojo installation, you need to fully remove the tor container, its storage and image (because the `/etc/tor/torrc` is added in docker image):
+If you are adding electrs to existing dojo installation, you need to fully remove the tor container, its storage and image (because the tor services are configured in `./docker/my-dojo/tor/restart.sh` and this file is added to the docker image during build time):
+
+*TODO*:  The restart.sh script could be mounted using VOLUME
 
 ```sh
-docker container rm tor
+docker container rm -f tor
 docker volume rm my-dojo_data-tor
 docker image ls   # get the tor image id of samouraiwallet/dojo-tor
 docker image rm <imageid>   # image id of samouraiwallet/dojo-tor
