@@ -12,17 +12,19 @@ For installation of Samourai Dojo, view [Dojo's documentation](./doc/DOCKER_setu
 
 ### Electrs
 
-Before starting dojo server, build the eclectrs docker image
+The electrs server is now part of dojo folowing the same coding pattern as explorer.
 
-Clone the repository and build the docker image
+By default the electrs will start with ```dojo.sh start```.  If you don't want to run electrs server, simply modify the following line in ```./docker/my-dojo/conf/docker-electrs.conf```:
 
-```sh
-git clone https://github.com/romanz/electrs.git
-cd electrs
-docker build -t electrs-app .
 ```
+ELECTRS_INSTALL=off
+````
 
-*TODO*: Modify `dojo.sh` install scripts to add the building of electrs image
+You also configure additional option when running electrs.  For example, you may want to limit index-batch-size if you are running on limited hardware (Raspberry Pi or similar)
+
+```
+ELECTRS_OPTIONS="--index-batch-size=10"
+````
 
 Useful reference:
 
