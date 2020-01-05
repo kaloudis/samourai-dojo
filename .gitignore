@@ -17,4 +17,3 @@ static/admin/conf/index.js
 docker/my-dojo/conf/docker-common.conf
 docker/my-dojo/nginx/dojo.conf
 static/admin/conf/index.js
-docker/my-dojo/conf/docker-electrs.toml

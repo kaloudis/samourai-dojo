@@ -1,7 +1,6 @@
 version: "3.2"
 
 services:
-  
   electrs:
     image: electrs-app
     container_name: electrs
@@ -17,7 +16,7 @@ services:
       - db
       - tor
     volumes:
-      - data-electrs:/home/user
+      - data-electrs:/home/user/db
       # - ./electrs/restart.sh:/home/user/restart.sh
     restart: on-failure
     networks:
