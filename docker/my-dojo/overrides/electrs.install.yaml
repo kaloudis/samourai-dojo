@@ -3,7 +3,7 @@ version: "3.2"
 services:
   
   electrs:
-    image: electrs-app:latest
+    image: electrs-app
     container_name: electrs
     build:
       context: ./electrs
@@ -17,7 +17,6 @@ services:
       - db
       - tor
     volumes:
-      - ./conf/docker-electrs.toml:/home/user/.electrs/config.toml:ro
       - data-electrs:/home/user
       # - ./electrs/restart.sh:/home/user/restart.sh
     restart: on-failure
@@ -27,4 +26,3 @@ services:
 
 volumes:
   data-electrs:
-
