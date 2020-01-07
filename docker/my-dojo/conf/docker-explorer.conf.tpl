@@ -5,7 +5,7 @@
 
 # Install and run a block explorer inside Dojo (recommended)
 # Value: on | off
-EXPLORER_INSTALL=on
+EXPLORER_INSTALL=off
 
 
 # Password required for accessing the block explorer
