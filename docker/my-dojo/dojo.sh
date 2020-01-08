@@ -16,7 +16,6 @@ source_file() {
 # Source config files
 source_file "$DIR/conf/docker-bitcoind.conf"
 source_file "$DIR/conf/docker-explorer.conf"
-source_file "$DIR/conf/docker-electrs.conf"
 source_file "$DIR/conf/docker-common.conf"
 source_file "$DIR/.env"
 
@@ -37,10 +36,6 @@ select_yaml_files() {
 
   if [ "$EXPLORER_INSTALL" == "on" ]; then
     yamlFiles="$yamlFiles -f $DIR/overrides/explorer.install.yaml"
-  fi
-
-  if [ "$ELECTRS_INSTALL" == "on" ]; then
-    yamlFiles="$yamlFiles -f $DIR/overrides/electrs.install.yaml"
   fi
 
   # Return yamlFiles
@@ -222,7 +217,6 @@ onion() {
 
   V2_ADDR=$( docker exec -it tor cat /var/lib/tor/hsv2dojo/hostname )
   V3_ADDR=$( docker exec -it tor cat /var/lib/tor/hsv3dojo/hostname )
-  
   echo "API hidden service address (v3) = $V3_ADDR"
   echo "API hidden service address (v2) = $V2_ADDR"
 
@@ -230,12 +224,6 @@ onion() {
     V2_ADDR_BTCD=$( docker exec -it tor cat /var/lib/tor/hsv2bitcoind/hostname )
     echo "bitcoind hidden service address (v2) = $V2_ADDR_BTCD"
   fi
-
-  if [ "$ELECTRS_INSTALL" == "on" ]; then
-    V3_ADDR_ELECTRS=$( docker exec -it tor cat /var/lib/tor/hsv3electrs/hostname )
-    echo "electrs hidden service address (v3) = $V3_ADDR_ELECTRS"
-  fi
-  
 }
 
 # Display the version of this dojo
@@ -289,9 +277,6 @@ logs() {
     explorer )
       logs_explorer $1 $2 $3
       ;;
-    electrs )
-      docker container logs electrs --tail=50 --follow  # TODO: fix to use docker-compose for consistency
-      ;;
     * )
       yamlFiles=$(select_yaml_files)
       services="nginx node tor db" 
@@ -300,9 +285,6 @@ logs() {
       fi
       if [ "$EXPLORER_INSTALL" == "on" ]; then
         services="$services explorer"
-      fi
-      if [ "$ELECTRS_INSTALL" == "on" ]; then
-        services="$services electrs"
       fi
       eval "docker-compose $yamlFiles logs --tail=0 --follow $services"
       ;;
@@ -336,7 +318,6 @@ help() {
   echo "                                  dojo.sh logs pushtx         : display the logs of the pushTx API (nodejs)"
   echo "                                  dojo.sh logs pushtx-orchest : display the logs of the pushTx Orchestrator (nodejs)"
   echo "                                  dojo.sh logs explorer       : display the logs of the Explorer"
-  echo "                                  dojo.sh logs electrs        : display the logs of the electrs"
   echo " "
   echo "                                Available options (only available for api, tracker, pushtx, pushtx-orchest and explorer modules):"
   echo "                                  -d [VALUE]                  : select the type of log to be displayed."

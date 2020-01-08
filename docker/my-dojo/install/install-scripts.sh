@@ -58,9 +58,6 @@ init_config_files() {
   cp ./conf/docker-explorer.conf.tpl ./conf/docker-explorer.conf
   echo "Initialized docker-explorer.conf"
 
-  cp ./conf/docker-electrs.conf.tpl ./conf/electrs.conf
-  echo "Initialized electrs.conf"
-
   cp ./conf/docker-tor.conf.tpl ./conf/docker-tor.conf
   echo "Initialized docker-tor.conf"
 
