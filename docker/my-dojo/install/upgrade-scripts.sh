@@ -12,6 +12,12 @@ else
   source ./conf/docker-explorer.conf.tpl
 fi
 
+if [ -f ./conf/docker-electrs.conf ]; then
+  source ./conf/docker-electrs.conf
+else
+  source ./conf/docker-electrs.conf.tpl
+fi
+
 source ./conf/docker-bitcoind.conf
 
 # Confirm upgrade operation
@@ -53,6 +59,9 @@ update_config_files() {
 
   update_config_file ./conf/docker-explorer.conf ./conf/docker-explorer.conf.tpl
   echo "Initialized docker-explorer.conf"
+  
+  update_config_file ./conf/docker-electrs.conf ./conf/docker-electrs.conf.tpl
+  echo "Initialized docker-electrs.conf"
 
   update_config_file ./conf/docker-tor.conf ./conf/docker-tor.conf.tpl
   echo "Initialized docker-tor.conf"
