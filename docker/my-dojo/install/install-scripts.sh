@@ -12,6 +12,12 @@ else
   source ./conf/docker-explorer.conf.tpl
 fi
 
+if [ -f ./conf/docker-electrs.conf ]; then
+  source ./conf/docker-electrs.conf
+else
+  source ./conf/docker-electrs.conf.tpl
+fi
+
 if [ -f ./conf/docker-common.conf ]; then
   source ./conf/docker-common.conf
 else
