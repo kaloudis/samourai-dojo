@@ -3,14 +3,15 @@ FROM    debian:stretch
 ENV     TOR_HOME            /var/lib/tor
 ENV     TOR_URL             https://archive.torproject.org/tor-package-archive
 ENV     TOR_VERSION         0.3.5.8
+ENV     TOR_GPG_KS_URI      hkp://keyserver.ubuntu.com:80
 ENV     TOR_GPG_KEY1        0xEB5A896A28988BF5
 ENV     TOR_GPG_KEY2        0xC218525819F78451
 ENV     TOR_GPG_KEY3        0x21194EBB165733EA
 ENV     TOR_GPG_KEY4        0x6AFEE6D49E92B601
 
 ENV     GOLANG_DL_URL       https://dl.google.com/go
-ENV     GOLANG_ARCHIVE      go1.11.13.linux-amd64.tar.gz
-ENV     GOLANG_SHA256       50fe8e13592f8cf22304b9c4adfc11849a2c3d281b1d7e09c924ae24874c6daa
+ENV     GOLANG_ARCHIVE      go1.13.5.linux-arm64.tar.gz
+ENV     GOLANG_SHA256       227b718923e20c846460bbecddde9cb86bad73acc5fb6f8e1a96b81b5c84668b
 
 ENV     OBFS4_URL           https://github.com/Yawning/obfs4.git
 ENV     OBFS4_VERSION       0.0.11
@@ -24,10 +25,10 @@ RUN     set -ex && \
         cd /usr/local/src && \
         wget -qO "tor-$TOR_VERSION.tar.gz" "$TOR_URL/tor-$TOR_VERSION.tar.gz" && \
         wget -qO "tor-$TOR_VERSION.tar.gz.asc" "$TOR_URL/tor-$TOR_VERSION.tar.gz.asc" && \
-        gpg --keyserver ipv4.pool.sks-keyservers.net --recv-keys "$TOR_GPG_KEY1" && \
-        gpg --keyserver ipv4.pool.sks-keyservers.net --recv-keys "$TOR_GPG_KEY2" && \
-        gpg --keyserver ipv4.pool.sks-keyservers.net --recv-keys "$TOR_GPG_KEY3" && \
-        gpg --keyserver ipv4.pool.sks-keyservers.net --recv-keys "$TOR_GPG_KEY4" && \
+        gpg --keyserver "$TOR_GPG_KS_URI" --recv-keys "$TOR_GPG_KEY1" && \
+        gpg --keyserver "$TOR_GPG_KS_URI" --recv-keys "$TOR_GPG_KEY2" && \
+        gpg --keyserver "$TOR_GPG_KS_URI" --recv-keys "$TOR_GPG_KEY3" && \
+        gpg --keyserver "$TOR_GPG_KS_URI" --recv-keys "$TOR_GPG_KEY4" && \
         gpg --verify "tor-$TOR_VERSION.tar.gz.asc" && \
         tar -xzvf "tor-$TOR_VERSION.tar.gz" -C /usr/local/src && \
         cd "/usr/local/src/tor-$TOR_VERSION" && \
