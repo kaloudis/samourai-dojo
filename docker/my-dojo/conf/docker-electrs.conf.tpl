@@ -5,7 +5,7 @@
 
 # Install and run a electrs inside Dojo (recommended)
 # Value: on | off
-ELECTRS_INSTALL=off
+ELECTRS_INSTALL=on
 
 
 # Additional parameters to run electrs command.  Useful if you need to run need
