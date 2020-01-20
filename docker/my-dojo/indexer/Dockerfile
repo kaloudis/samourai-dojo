@@ -34,7 +34,7 @@ RUN     set -ex && \
         wget -qO electrs.tar.gz "$INDEXER_URL/v$INDEXER_VERSION.tar.gz" && \
         tar -xzvf electrs.tar.gz -C "$INDEXER_HOME/" --strip-components 1 && \
         rm electrs.tar.gz && \
-        cd "$APP_DIR" 
+        cd "$INDEXER_HOME" 
 
 RUN     mkdir "$INDEXER_HOME/db" && \
         rm -r "$INDEXER_HOME/doc"  \
