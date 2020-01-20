@@ -39,6 +39,12 @@ RUN     set -ex && \
 
 RUN     cd "$INDEXER_HOME/electrs" && \
         cargo install --path .
+        
+RUN     rm -r "$INDEXER_HOME/electrs/doc"  \
+              "$INDEXER_HOME/electrs/examples" \
+              "$INDEXER_HOME/electrs/Dockerfile" \
+              "$INDEXER_HOME/electrs/src" \
+              "$INDEXER_HOME/electrs/build.rs"     
 
 EXPOSE  50001
 
