@@ -14,7 +14,9 @@ RUN     addgroup --system -gid 1109 indexer && \
 
 # Create data directory
 RUN     mkdir "$INDEXER_HOME/electrs" && \
-        chown -h indexer:indexer "$INDEXER_HOME/electrs"
+        mkdir "$INDEXER_HOME/db" && \
+        chown -h indexer:indexer "$INDEXER_HOME/electrs" && \
+        chown -h indexer:indexer "$INDEXER_HOME/db"
 
 # Copy restart script
 COPY    ./restart.sh /restart.sh
@@ -32,19 +34,10 @@ USER    indexer
 # Install electrs
 RUN     set -ex && \
         wget -qO electrs.tar.gz "$INDEXER_URL/v$INDEXER_VERSION.tar.gz" && \
-        tar -xzvf electrs.tar.gz -C "$INDEXER_HOME/" --strip-components 1 && \
-        rm electrs.tar.gz && \
-        cd "$INDEXER_HOME" 
+        tar -xzvf electrs.tar.gz -C "$INDEXER_HOME/electrs" --strip-components 1 && \
+        rm electrs.tar.gz
 
-RUN     mkdir "$INDEXER_HOME/db" && \
-        rm -r "$INDEXER_HOME/doc"  \
-              "$INDEXER_HOME/examples" \
-              "$INDEXER_HOME/Dockerfile" \
-              "$INDEXER_HOME/src" \
-              "$INDEXER_HOME/build.rs"
-
-RUN     cd "$INDEXER_HOME" && \
-        cargo build --release   && \
+RUN     cd "$INDEXER_HOME/electrs" && \
         cargo install --path .
 
 EXPOSE  50001
