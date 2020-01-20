@@ -1,8 +1,8 @@
 FROM    rust:1.37.0-slim
 
 ENV     INDEXER_HOME        /home/indexer
-ENV     INDEXER_VERSION     0..1.0
-ENV     INDEXER_URL         https://github.com/Samourai-Wallet/addrindexrs.git
+ENV     INDEXER_VERSION     0.8.2
+ENV     INDEXER_URL         https://github.com/romanz/electrs/archive
 
 RUN     apt-get update && \
         apt-get install -y clang cmake git && \
@@ -13,8 +13,8 @@ RUN     addgroup --system -gid 1109 indexer && \
         adduser --system --ingroup indexer -uid 1106 indexer
 
 # Create data directory
-RUN     mkdir "$INDEXER_HOME/addrindexrs" && \
-        chown -h indexer:indexer "$INDEXER_HOME/addrindexrs"
+RUN     mkdir "$INDEXER_HOME/electrs" && \
+        chown -h indexer:indexer "$INDEXER_HOME/electrs"
 
 # Copy restart script
 COPY    ./restart.sh /restart.sh
@@ -29,15 +29,22 @@ RUN     chown indexer:indexer /wait-for-it.sh && \
 
 USER    indexer
 
-# Install addrindexrs
-RUN     cd "$INDEXER_HOME" && \
-        git clone "$INDEXER_URL" "$INDEXER_HOME/addrindexrs" && \
-        cd addrindexrs && \
-        git checkout "master"
-# TODO uncomment
-#        git checkout "tags/v$INDEXER_VERSION"
+# Install electrs
+RUN     set -ex && \
+        wget -qO electrs.tar.gz "$INDEXER_URL/v$INDEXER_VERSION.tar.gz" && \
+        tar -xzvf electrs.tar.gz -C "$INDEXER_HOME/" --strip-components 1 && \
+        rm electrs.tar.gz && \
+        cd "$APP_DIR" 
 
-RUN     cd "$INDEXER_HOME/addrindexrs" && \
+RUN     mkdir "$INDEXER_HOME/db" && \
+        rm -r "$INDEXER_HOME/doc"  \
+              "$INDEXER_HOME/examples" \
+              "$INDEXER_HOME/Dockerfile" \
+              "$INDEXER_HOME/src" \
+              "$INDEXER_HOME/build.rs"
+
+RUN     cd "$INDEXER_HOME" && \
+        cargo build --release   && \
         cargo install --path .
 
 EXPOSE  50001
