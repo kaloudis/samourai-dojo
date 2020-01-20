@@ -25,7 +25,7 @@ tor_options=(
   --HiddenServiceDirGroupReadable 1
   --HiddenServiceDir /var/lib/tor/hsv3electrs
   --HiddenServiceVersion 3
-  --HiddenServicePort "50001 172.28.1.10:50001"
+  --HiddenServicePort "50001 172.28.1.6:50001"
 )
 
 if [ "$EXPLORER_INSTALL" == "on" ]; then
