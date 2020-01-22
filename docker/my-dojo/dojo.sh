@@ -221,6 +221,11 @@ onion() {
     echo "Explorer hidden service address (v3) = $V3_ADDR_EXPLORER"
   fi
 
+  if [ "$INDEXER_INSTALL" == "on" ]; then
+    V3_ADDR_ELECTRS=$( docker exec -it tor cat /var/lib/tor/hsv3electrs/hostname )
+    echo "Electrs hidden service address (v3) = $V3_ADDR_ELECTRS"
+  fi
+
   V2_ADDR=$( docker exec -it tor cat /var/lib/tor/hsv2dojo/hostname )
   V3_ADDR=$( docker exec -it tor cat /var/lib/tor/hsv3dojo/hostname )
   echo "API hidden service address (v3) = $V3_ADDR"
