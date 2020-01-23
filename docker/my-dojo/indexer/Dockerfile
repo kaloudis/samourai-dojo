@@ -29,13 +29,13 @@ RUN     chown indexer:indexer /wait-for-it.sh && \
         chmod u+x /wait-for-it.sh && \
         chmod g+x /wait-for-it.sh
 
-USER    indexer
-
 # Install electrs
 RUN     set -ex && \
         wget -qO electrs.tar.gz "$INDEXER_URL/v$INDEXER_VERSION.tar.gz" && \
         tar -xzvf electrs.tar.gz -C "$INDEXER_HOME/electrs" --strip-components 1 && \
         rm electrs.tar.gz
+
+USER    indexer
 
 RUN     cd "$INDEXER_HOME/electrs" && \
         cargo install --path .
