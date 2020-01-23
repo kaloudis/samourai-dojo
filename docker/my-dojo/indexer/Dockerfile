@@ -38,13 +38,7 @@ RUN     set -ex && \
 USER    indexer
 
 RUN     cd "$INDEXER_HOME/electrs" && \
-        cargo install --path .
-        
-RUN     rm -r "$INDEXER_HOME/electrs/doc"  \
-              "$INDEXER_HOME/electrs/examples" \
-              "$INDEXER_HOME/electrs/Dockerfile" \
-              "$INDEXER_HOME/electrs/src" \
-              "$INDEXER_HOME/electrs/build.rs"     
+        cargo install --path . 
 
 EXPOSE  50001
 
